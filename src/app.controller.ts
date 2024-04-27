@@ -18,7 +18,7 @@ export class AuthController {
   @UseGuards(AuthGuard('local'))
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('login')
-  async login(@Body() user: any, @Req() req) {
+  async login(@Body() user: string, @Req() req) {
     return req.user;
   }
 }

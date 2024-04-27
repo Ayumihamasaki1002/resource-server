@@ -6,8 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // swagger 配置
   const config = new DocumentBuilder()
-    .setTitle('Cats example') // api文档标题
-    .setDescription('The cats API description') // api文档描述
+    .setTitle('SummerPockets') // api文档标题
+    .setDescription('SummerPockets API文档') // api文档描述
     .setVersion('1.0') // api文档版本
     .addTag('') // 标签
     .addBearerAuth() // token鉴权

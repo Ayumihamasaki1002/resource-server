@@ -17,11 +17,15 @@ export class UserService {
       where: { username },
     });
     if (existUser) {
+      console.log(existUser);
       throw new HttpException('用户名已存在', HttpStatus.BAD_REQUEST);
     }
 
     const newUser = await this.userRepository.create(createUser);
     await this.userRepository.save(newUser);
     return await this.userRepository.findOne({ where: { username } });
+  }
+  async findOne(id: any) {
+    return await this.userRepository.findOne(id);
   }
 }
