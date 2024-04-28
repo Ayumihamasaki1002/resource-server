@@ -25,7 +25,8 @@ export class UserService {
     await this.userRepository.save(newUser);
     return await this.userRepository.findOne({ where: { username } });
   }
-  async findOne(id: any) {
-    return await this.userRepository.findOne(id);
+  async findOne(id) {
+    console.log(id);
+    return await this.userRepository.findOne({ where: { id } });
   }
 }

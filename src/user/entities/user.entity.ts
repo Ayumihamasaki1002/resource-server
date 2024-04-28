@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
 // import { PostsEntity } from 'src/posts/posts.entity';
