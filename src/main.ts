@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 
 import * as cors from 'cors';
 
-const whiteList = ['/auth/login', '/auth/register'];
+const whiteList = ['/auth/login', '/user/register'];
 function middleWareAll(req, res, next) {
   console.log(req.originalUrl, '你被我拦截了！');
 
