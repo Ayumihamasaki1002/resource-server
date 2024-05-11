@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import envConfig from '../config/env';
 
 import { ConfigService, ConfigModule } from '@nestjs/config';
+import { WarehouseModule } from './warehouse/warehouse.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
       synchronize: true,
     }),
     AuthModule,
+    WarehouseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

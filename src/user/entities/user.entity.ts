@@ -1,7 +1,8 @@
 import { Exclude } from 'class-transformer';
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
+import { Warehouse } from 'src/warehouse/entities/warehouse.entity';
 // import { PostsEntity } from 'src/posts/posts.entity';
 @Entity('user')
 export class User {
@@ -33,6 +34,10 @@ export class User {
 
   // @OneToMany(() => PostsEntity, (post) => post.author)
   // posts: PostsEntity[];
+
+  // 一对多 用户与仓库
+  @OneToMany(() => Warehouse, (warehouse) => warehouse.owner)
+  warehouses: Warehouse[];
 
   @Column({
     name: 'create_time',
