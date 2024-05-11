@@ -16,15 +16,12 @@ export class UserService {
     const existUser = await this.userRepository.findOne({
       where: { username },
     });
-    if (existUser) {
-      console.log(existUser);
-      throw new HttpException('用户名已存在', HttpStatus.BAD_REQUEST);
-    }
-
-    const newUser = await this.userRepository.create(createUser);
+    if (existUser) throw new HttpException('用户名已存在', HttpStatus.BAD_REQUEST);
+    const newUser = this.userRepository.create(createUser);
     await this.userRepository.save(newUser);
     return await this.userRepository.findOne({ where: { username } });
   }
+
   async findOne(id) {
     console.log(id);
     return await this.userRepository.findOne({ where: { id } });
