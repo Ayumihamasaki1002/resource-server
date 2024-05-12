@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('warehouse')
 export class Warehouse {
@@ -12,5 +12,5 @@ export class Warehouse {
   housename: string;
 
   @ManyToOne(() => User, (owner) => owner.warehouses)
-  owner: Warehouse;
+  owner: User;
 }

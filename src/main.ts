@@ -4,13 +4,12 @@ import { AppModule } from './app.module';
 
 import * as cors from 'cors';
 
-const whiteList = ['/auth/login', '/user/register', '/warehouse/createHouse'];
+const whiteList = ['/auth/login', '/user/register', '/warehouse/createHouse', '/user'];
 function middleWareAll(req, res, next) {
-  console.log(req.originalUrl, '你被我拦截了！');
-
   if (whiteList.includes(req.originalUrl)) {
     next();
   } else {
+    console.log(req.originalUrl, '你被我拦截了！');
     res.send({ code: 200 });
   }
 }

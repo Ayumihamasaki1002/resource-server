@@ -10,6 +10,7 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
+  // 用户注册
   async register(createUser: CreateUserDto) {
     const { username } = createUser;
 
