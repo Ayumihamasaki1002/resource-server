@@ -14,7 +14,7 @@ export class WarehouseService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-  // 创建第仓库
+  // 创建仓库
   async createHouse(createHouse: CreateWarehouseDto) {
     const { housename, owner } = createHouse;
     console.log(createHouse);
@@ -28,7 +28,10 @@ export class WarehouseService {
     await this.warehouseRepository.save(newHouse);
     const user = await this.userRepository.findOne({
       where: { id: owner },
+      relations: ['warehouses'], // 加载用户的仓库关联
     });
+    console.log(user.warehouses);
+
     if (user.warehouses === undefined) user.warehouses = [];
     user.warehouses.push(newHouse);
 
