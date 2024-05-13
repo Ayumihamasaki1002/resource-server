@@ -17,6 +17,14 @@ export class WarehouseController {
     return this.warehouseService.createHouse(createHouse);
   }
 
+  @ApiOperation({ summary: '获取仓库列表' })
+  @ApiResponse({ status: 200, type: [Warehouse] })
+  @Get(':id')
+  getHouseList(@Param('id') ownerId: string) {
+    console.log('ownerId', ownerId);
+    return this.warehouseService.getHouseList(ownerId);
+  }
+
   @Get()
   findAll() {
     return this.warehouseService.findAll();

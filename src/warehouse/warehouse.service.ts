@@ -40,6 +40,14 @@ export class WarehouseService {
     return await this.userRepository.save(user);
   }
 
+  async getHouseList(userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['warehouses'], // 加载用户的仓库关联
+    });
+    return user;
+  }
+
   findAll() {
     return `This action returns all warehouse`;
   }

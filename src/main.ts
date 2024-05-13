@@ -4,13 +4,35 @@ import { AppModule } from './app.module';
 
 import * as cors from 'cors';
 
-const whiteList = ['/auth/login', '/user/register', '/warehouse/createHouse', '/user'];
+const whiteListPatterns = [
+  '/auth/login',
+  '/user/register',
+  '/warehouse/createHouse',
+  '/user',
+  /\/warehouse\/\w+-\w+-\w+-\w+-\w+/,
+];
 function middleWareAll(req, res, next) {
-  if (whiteList.includes(req.originalUrl)) {
-    next();
+  const path = req.path; // 注意这里使用 req.path 而不是 req.originalUrl
+
+  // 检查路径是否匹配白名单中的任何模式
+  if (
+    whiteListPatterns.some((pattern) => {
+      // 如果 pattern 是字符串，则直接比较
+      if (typeof pattern === 'string') {
+        return path === pattern;
+      }
+      // 如果 pattern 是正则表达式，则测试路径是否匹配
+      else if (pattern instanceof RegExp) {
+        return pattern.test(path);
+      }
+      // 其他情况可以抛出错误或返回 false
+      return false;
+    })
+  ) {
+    next(); // 如果匹配，则继续处理请求
   } else {
-    console.log(req.originalUrl, '你被我拦截了！');
-    res.send({ code: 200 });
+    console.log(path, '你被我拦截了！');
+    res.send({ code: 200 }); // 如果不匹配，则发送响应并结束请求
   }
 }
 
