@@ -5,14 +5,19 @@ import { AppModule } from './app.module';
 import * as cors from 'cors';
 
 const whiteListPatterns = [
+  // auth
   '/auth/login',
-  '/user/register',
-  '/warehouse/createHouse',
+  // user
   '/user',
+  '/user/register',
+  // warehouse
   '/warehouse',
-  '/housedetail/add',
+  '/warehouse/createHouse',
   /\/warehouse\/\w+-\w+-\w+-\w+-\w+/,
+  // housedetail
+  '/housedetail/add',
   /\/housedetail\/\w+-\w+-\w+-\w+-\w+/,
+  /\/housedetail\/\w+-\w+-\w+-\w+-\w+\/\w+-\w+-\w+-\w+-\w+/,
 ];
 function middleWareAll(req, res, next) {
   const path = req.path; // 注意这里使用 req.path 而不是 req.originalUrl

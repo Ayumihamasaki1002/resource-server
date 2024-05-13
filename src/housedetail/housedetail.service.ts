@@ -50,6 +50,34 @@ export class HousedetailService {
     return allFile;
   }
 
+  // 获取单个文件
+  async getFile(id: string, fileId: string) {
+    const findHouse = await this.warehouseRepository.findOne({
+      where: { id },
+      relations: ['files'],
+    });
+    if (!findHouse) throw new HttpException('仓库名不存在', HttpStatus.BAD_REQUEST);
+    const findFile = await this.housedetailRepository.findOne({
+      where: { id: fileId },
+    });
+    if (!findFile) throw new HttpException('文件名不存在', HttpStatus.BAD_REQUEST);
+    const findFileIndex = findHouse.files.findIndex((item) => item.id === fileId);
+    if (findFileIndex === -1) throw new HttpException('文件名不存在', HttpStatus.BAD_REQUEST);
+    return findHouse.files[findFileIndex];
+  }
+
+  // 修改文件内容
+  async updateFile(fileId: string, file: UpdateHousedetailDto) {
+    const findFile = await this.housedetailRepository.findOne({
+      where: { id: fileId },
+    });
+    if (!findFile) throw new HttpException('文件名不存在', HttpStatus.BAD_REQUEST);
+    const { fileName, fileContent } = file;
+    if (fileName) findFile.name = fileName;
+    if (fileContent) findFile.content = fileContent;
+    await this.housedetailRepository.save(findFile);
+  }
+
   create(createHousedetailDto: CreateHousedetailDto) {
     return 'This action adds a new housedetail';
   }

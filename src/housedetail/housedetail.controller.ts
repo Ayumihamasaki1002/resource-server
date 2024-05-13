@@ -24,14 +24,18 @@ export class HousedetailController {
     return this.housedetailService.getAllFile(houseId);
   }
 
-  @Get()
-  findAll() {
-    return this.housedetailService.findAll();
+  @ApiOperation({ summary: '查询单个文件' })
+  @ApiResponse({ status: 200, type: [Housedetail] })
+  @Get(':id/:fileId')
+  getFile(@Param('id') houseId: string, @Param('fileId') fileId: string) {
+    return this.housedetailService.getFile(houseId, fileId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.housedetailService.findOne(+id);
+  @ApiOperation({ summary: '修改单个文件' })
+  @ApiResponse({ status: 200, type: [Housedetail] })
+  @Patch(':fileId')
+  updateFile(@Param('fileId') id: string, @Body() updataFile: UpdateHousedetailDto) {
+    return this.housedetailService.updateFile(id, updataFile);
   }
 
   @Patch(':id')

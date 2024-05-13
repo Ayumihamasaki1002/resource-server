@@ -38,24 +38,4 @@ export class WarehouseController {
     const { id, owner } = deleteHouse;
     return this.warehouseService.deleteHouse(id, owner);
   }
-
-  @Get()
-  findAll() {
-    return this.warehouseService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.warehouseService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWarehouseDto: UpdateWarehouseDto) {
-    return this.warehouseService.update(+id, updateWarehouseDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.warehouseService.remove(+id);
-  }
 }
