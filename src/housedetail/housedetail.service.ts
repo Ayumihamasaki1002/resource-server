@@ -78,23 +78,12 @@ export class HousedetailService {
     await this.housedetailRepository.save(findFile);
   }
 
-  create(createHousedetailDto: CreateHousedetailDto) {
-    return 'This action adds a new housedetail';
-  }
-
-  findAll() {
-    return `This action returns all housedetail`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} housedetail`;
-  }
-
-  update(id: number, updateHousedetailDto: UpdateHousedetailDto) {
-    return `This action updates a #${id} housedetail`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} housedetail`;
+  // 删除文件
+  async deleteFile(fileId: string) {
+    const findFile = await this.housedetailRepository.findOne({
+      where: { id: fileId },
+    });
+    if (!findFile) throw new HttpException('文件不存在', HttpStatus.BAD_REQUEST);
+    await this.housedetailRepository.delete(fileId);
   }
 }

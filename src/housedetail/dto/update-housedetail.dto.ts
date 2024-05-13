@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateHousedetailDto } from './create-housedetail.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
-export class UpdateHousedetailDto extends PartialType(CreateHousedetailDto) {}
+export class UpdateHousedetailDto {
+  @ApiProperty({ description: '文件名' })
+  @IsNotEmpty({ message: '请输入文件名' })
+  fileName: string;
+
+  @ApiProperty({ description: '文件内容' })
+  @IsNotEmpty({ message: '请输入文件内容' })
+  fileContent: string;
+}

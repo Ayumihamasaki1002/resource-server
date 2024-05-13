@@ -10,6 +10,7 @@ import { Housedetail } from './entities/housedetail.entity';
 export class HousedetailController {
   constructor(private readonly housedetailService: HousedetailService) {}
 
+  // 添加文件
   @ApiOperation({ summary: '添加文件' })
   @ApiResponse({ status: 201, type: [Housedetail] })
   @Post('add')
@@ -17,6 +18,7 @@ export class HousedetailController {
     return this.housedetailService.addFile(createHousedetailDto);
   }
 
+  // 查询所有文件
   @ApiOperation({ summary: '查询所有文件' })
   @ApiResponse({ status: 200, type: [Housedetail] })
   @Get(':id')
@@ -24,6 +26,7 @@ export class HousedetailController {
     return this.housedetailService.getAllFile(houseId);
   }
 
+  // 查询单个文件
   @ApiOperation({ summary: '查询单个文件' })
   @ApiResponse({ status: 200, type: [Housedetail] })
   @Get(':id/:fileId')
@@ -31,6 +34,7 @@ export class HousedetailController {
     return this.housedetailService.getFile(houseId, fileId);
   }
 
+  // 修改单个文件
   @ApiOperation({ summary: '修改单个文件' })
   @ApiResponse({ status: 200, type: [Housedetail] })
   @Patch(':fileId')
@@ -38,13 +42,11 @@ export class HousedetailController {
     return this.housedetailService.updateFile(id, updataFile);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHousedetailDto: UpdateHousedetailDto) {
-    return this.housedetailService.update(+id, updateHousedetailDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.housedetailService.remove(+id);
+  // 删除单个文件
+  @ApiOperation({ summary: '删除单个文件' })
+  @ApiResponse({ status: 200, type: [Housedetail] })
+  @Delete(':fileId')
+  deleteFile(@Param('fileId') id: string) {
+    return this.housedetailService.deleteFile(id);
   }
 }
