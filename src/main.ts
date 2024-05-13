@@ -10,6 +10,7 @@ const whiteListPatterns = [
   '/warehouse/createHouse',
   '/user',
   '/warehouse',
+  '/housedetail/add',
   /\/warehouse\/\w+-\w+-\w+-\w+-\w+/,
 ];
 function middleWareAll(req, res, next) {

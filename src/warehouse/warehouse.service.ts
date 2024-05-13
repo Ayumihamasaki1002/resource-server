@@ -39,7 +39,7 @@ export class WarehouseService {
   async getHouseList(userId: string) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
-      relations: ['warehouses'], // 加载用户的仓库关联
+      relations: ['warehouses', 'warehouses.files'], // 加载用户的仓库关联
     });
     return user;
   }
@@ -52,7 +52,7 @@ export class WarehouseService {
       relations: ['warehouses'], // 加载用户的仓库关联
     });
     if (!user) throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
-    const house = user.warehouses.find((item) => item.houseid === id);
+    const house = user.warehouses.find((item) => item.id === id);
     if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
     house.housename = housename;
     await this.warehouseRepository.save(house);
@@ -65,9 +65,9 @@ export class WarehouseService {
       relations: ['warehouses'], // 加载用户的仓库关联
     });
     if (!user) throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
-    const house = user.warehouses.find((item) => item.houseid === id);
+    const house = user.warehouses.find((item) => item.id === id);
     if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
-    user.warehouses = user.warehouses.filter((item) => item.houseid !== id);
+    user.warehouses = user.warehouses.filter((item) => item.id !== id);
     await this.warehouseRepository.remove(house);
     await this.userRepository.save(user);
   }

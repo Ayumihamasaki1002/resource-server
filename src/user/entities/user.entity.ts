@@ -32,9 +32,6 @@ export class User {
   @Column('enum', { enum: ['root', 'author', 'visitor'], default: 'visitor' })
   role: string;
 
-  // @OneToMany(() => PostsEntity, (post) => post.author)
-  // posts: PostsEntity[];
-
   // 一对多 用户与仓库
   @OneToMany(() => Warehouse, (warehouse) => warehouse.owner)
   warehouses: Warehouse[];

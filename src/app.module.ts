@@ -8,6 +8,7 @@ import envConfig from '../config/env';
 
 import { ConfigService, ConfigModule } from '@nestjs/config';
 import { WarehouseModule } from './warehouse/warehouse.module';
+import { HousedetailModule } from './housedetail/housedetail.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { WarehouseModule } from './warehouse/warehouse.module';
     }),
     AuthModule,
     WarehouseModule,
+    HousedetailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
