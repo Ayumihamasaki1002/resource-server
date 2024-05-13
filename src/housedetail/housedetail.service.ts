@@ -41,6 +41,15 @@ export class HousedetailService {
     return await this.warehouseRepository.save(warehouse);
   }
 
+  // 获取所有文件
+  async getAllFile(id: string) {
+    const allFile = await this.warehouseRepository.findOne({
+      where: { id },
+      relations: ['files'],
+    });
+    return allFile;
+  }
+
   create(createHousedetailDto: CreateHousedetailDto) {
     return 'This action adds a new housedetail';
   }

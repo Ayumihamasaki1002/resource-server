@@ -12,6 +12,7 @@ const whiteListPatterns = [
   '/warehouse',
   '/housedetail/add',
   /\/warehouse\/\w+-\w+-\w+-\w+-\w+/,
+  /\/housedetail\/\w+-\w+-\w+-\w+-\w+/,
 ];
 function middleWareAll(req, res, next) {
   const path = req.path; // 注意这里使用 req.path 而不是 req.originalUrl

@@ -17,9 +17,11 @@ export class HousedetailController {
     return this.housedetailService.addFile(createHousedetailDto);
   }
 
-  @Post()
-  create(@Body() createHousedetailDto: CreateHousedetailDto) {
-    return this.housedetailService.create(createHousedetailDto);
+  @ApiOperation({ summary: '查询所有文件' })
+  @ApiResponse({ status: 200, type: [Housedetail] })
+  @Get(':id')
+  getHouseList(@Param('id') houseId: string) {
+    return this.housedetailService.getAllFile(houseId);
   }
 
   @Get()
