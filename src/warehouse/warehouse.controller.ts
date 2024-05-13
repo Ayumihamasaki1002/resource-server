@@ -21,8 +21,14 @@ export class WarehouseController {
   @ApiResponse({ status: 200, type: [Warehouse] })
   @Get(':id')
   getHouseList(@Param('id') ownerId: string) {
-    console.log('ownerId', ownerId);
     return this.warehouseService.getHouseList(ownerId);
+  }
+
+  @ApiOperation({ summary: '修改仓库信息' })
+  @ApiResponse({ status: 200, type: [Warehouse] })
+  @Patch()
+  updateHouse(@Body() updateHouse: UpdateWarehouseDto) {
+    return this.warehouseService.updateHouse(updateHouse);
   }
 
   @Get()
