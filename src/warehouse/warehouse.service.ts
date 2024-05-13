@@ -58,6 +58,20 @@ export class WarehouseService {
     await this.warehouseRepository.save(house);
   }
 
+  // 删除仓库
+  async deleteHouse(id: string, owner: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: owner },
+      relations: ['warehouses'], // 加载用户的仓库关联
+    });
+    if (!user) throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
+    const house = user.warehouses.find((item) => item.houseid === id);
+    if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
+    user.warehouses = user.warehouses.filter((item) => item.houseid !== id);
+    await this.warehouseRepository.remove(house);
+    await this.userRepository.save(user);
+  }
+
   findAll() {
     return `This action returns all warehouse`;
   }

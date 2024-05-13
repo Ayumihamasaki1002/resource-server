@@ -31,6 +31,14 @@ export class WarehouseController {
     return this.warehouseService.updateHouse(updateHouse);
   }
 
+  @ApiOperation({ summary: '删除仓库' })
+  @ApiResponse({ status: 200, type: [Warehouse] })
+  @Delete()
+  deleteHouse(@Body() deleteHouse: UpdateWarehouseDto) {
+    const { id, owner } = deleteHouse;
+    return this.warehouseService.deleteHouse(id, owner);
+  }
+
   @Get()
   findAll() {
     return this.warehouseService.findAll();
