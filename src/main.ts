@@ -14,6 +14,7 @@ const whiteListPatterns = [
   '/warehouse',
   '/warehouse/createHouse',
   /\/warehouse\/\w+-\w+-\w+-\w+-\w+/,
+  /\/warehouse\/getHouse\/\w+-\w+-\w+-\w+-\w+/,
   // housedetail
   '/housedetail/add',
   /\/housedetail\/\w+-\w+-\w+-\w+-\w+/,

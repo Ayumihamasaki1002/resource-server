@@ -37,11 +37,24 @@ export class WarehouseService {
 
   // 获取仓库列表
   async getHouseList(userId: string) {
-    const user = await this.userRepository.findOne({
+    const houseList = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['warehouses', 'warehouses.files'], // 加载用户的仓库关联
     });
-    return user;
+    return houseList;
+  }
+
+  // 获取单个仓库
+  async getHouse(id: string) {
+    console.log('123');
+
+    const house = await this.warehouseRepository.findOne({
+      where: { id },
+      relations: ['files'], // 加载仓库的文件关联
+    });
+    console.log(house);
+    if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
+    return house;
   }
 
   // 修改仓库信息
@@ -70,21 +83,5 @@ export class WarehouseService {
     user.warehouses = user.warehouses.filter((item) => item.id !== id);
     await this.warehouseRepository.remove(house);
     await this.userRepository.save(user);
-  }
-
-  findAll() {
-    return `This action returns all warehouse`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} warehouse`;
-  }
-
-  update(id: number, updateWarehouseDto: UpdateWarehouseDto) {
-    return `This action updates a #${id} warehouse`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} warehouse`;
   }
 }

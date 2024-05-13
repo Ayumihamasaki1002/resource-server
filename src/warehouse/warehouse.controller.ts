@@ -10,6 +10,7 @@ import { Warehouse } from './entities/warehouse.entity';
 export class WarehouseController {
   constructor(private readonly warehouseService: WarehouseService) {}
 
+  // 创建仓库
   @ApiOperation({ summary: '新建仓库' })
   @ApiResponse({ status: 201, type: [Warehouse] })
   @Post('createHouse')
@@ -17,13 +18,23 @@ export class WarehouseController {
     return this.warehouseService.createHouse(createHouse);
   }
 
+  // 获取仓库列表
   @ApiOperation({ summary: '获取仓库列表' })
   @ApiResponse({ status: 200, type: [Warehouse] })
-  @Get(':id')
-  getHouseList(@Param('id') ownerId: string) {
+  @Get(':ownerId')
+  getHouseList(@Param('ownerId') ownerId: string) {
     return this.warehouseService.getHouseList(ownerId);
   }
 
+  // 获取单个仓库
+  @ApiOperation({ summary: '获取单个仓库' })
+  @ApiResponse({ status: 200, type: [Warehouse] })
+  @Get('/getHouse/:houseId')
+  getHouse(@Param('houseId') houseId: string) {
+    return this.warehouseService.getHouse(houseId);
+  }
+
+  // 修改仓库信息
   @ApiOperation({ summary: '修改仓库信息' })
   @ApiResponse({ status: 200, type: [Warehouse] })
   @Patch()
@@ -31,6 +42,7 @@ export class WarehouseController {
     return this.warehouseService.updateHouse(updateHouse);
   }
 
+  // 删除仓库
   @ApiOperation({ summary: '删除仓库' })
   @ApiResponse({ status: 200, type: [Warehouse] })
   @Delete()
