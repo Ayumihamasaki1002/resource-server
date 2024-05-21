@@ -43,6 +43,21 @@ export class WarehouseService {
     });
     return houseList;
   }
+  // 获取仓库列表，不包含内容 加快页面加载速度
+  async getHouseLists(userId: string) {
+    const houseList = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['warehouses', 'warehouses.files'], // 加载用户的仓库关联
+    });
+    houseList.warehouses.forEach((item) => {
+      if (item.files.length > 0)
+        item.files.forEach((file) => {
+          file.content = '';
+          console.log(file);
+        });
+    });
+    return houseList.warehouses;
+  }
 
   // 获取单个仓库
   async getHouse(id: string) {

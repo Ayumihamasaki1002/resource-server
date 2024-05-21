@@ -25,6 +25,13 @@ export class WarehouseController {
   getHouseList(@Param('ownerId') ownerId: string) {
     return this.warehouseService.getHouseList(ownerId);
   }
+  // 获取仓库列表，轻量版
+  @ApiOperation({ summary: '获取仓库列表，轻量版' })
+  @ApiResponse({ status: 200, type: [Warehouse] })
+  @Get('/fast/:ownerId')
+  getHouseLists(@Param('ownerId') ownerId: string) {
+    return this.warehouseService.getHouseLists(ownerId);
+  }
 
   // 获取单个仓库
   @ApiOperation({ summary: '获取单个仓库' })
