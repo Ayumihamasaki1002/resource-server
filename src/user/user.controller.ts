@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { ApiOperation, ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { UpdateUserDto } from './dto/update-user.dto';
 @ApiTags('用户')
 @Controller('user')
 export class UserController {
@@ -21,5 +22,12 @@ export class UserController {
   @Get()
   getUserInfo(@Req() req) {
     return req.user;
+  }
+
+  @ApiOperation({ summary: '更新用户信息' })
+  @ApiResponse({ status: 200, type: [User] })
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUser: UpdateUserDto) {
+    return this.userService.updateInfo(id, updateUser);
   }
 }

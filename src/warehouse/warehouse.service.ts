@@ -59,7 +59,7 @@ export class WarehouseService {
 
   // 修改仓库信息
   async updateHouse(updateHouseDto: UpdateWarehouseDto) {
-    const { id, housename, owner } = updateHouseDto;
+    const { id, housename, owner, facePage } = updateHouseDto;
     const user = await this.userRepository.findOne({
       where: { id: owner },
       relations: ['warehouses'], // 加载用户的仓库关联

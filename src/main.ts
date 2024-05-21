@@ -10,6 +10,7 @@ const whiteListPatterns = [
   // user
   '/user',
   '/user/register',
+  /\/user\/\w+-\w+-\w+-\w+-\w+/,
   // warehouse
   '/warehouse',
   '/warehouse/createHouse',

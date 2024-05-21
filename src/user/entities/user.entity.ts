@@ -29,6 +29,21 @@ export class User {
   @Column({ default: null })
   openid: string;
 
+  @Column({ default: null })
+  github: string;
+
+  @Column({ default: null })
+  csdn: string;
+
+  @Column({ default: null })
+  juejin: string;
+
+  @Column({ length: 50, default: null })
+  intro: string;
+
+  @Column({ length: 1000, default: null })
+  warehouseFacePage: string;
+
   @Column('enum', { enum: ['root', 'author', 'visitor'], default: 'visitor' })
   role: string;
 
