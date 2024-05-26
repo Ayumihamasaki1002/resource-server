@@ -78,12 +78,12 @@ export class WarehouseService {
   // 修改仓库信息
   async updateHouse(updateHouseDto: UpdateWarehouseDto) {
     const { id, housename } = updateHouseDto;
-    const house = this.warehouseRepository.findOne({
+    const house = await this.warehouseRepository.findOne({
       where: { id },
     });
     if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
-    (await house).housename = housename;
-    await this.warehouseRepository.save(await house);
+    house.housename = housename;
+    await this.warehouseRepository.save(house);
   }
 
   // 删除仓库
