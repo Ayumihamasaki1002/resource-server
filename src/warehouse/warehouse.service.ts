@@ -5,6 +5,7 @@ import { CreateWarehouseDto } from './dto/create-warehouse.dto';
 import { UpdateWarehouseDto } from './dto/update-warehouse.dto';
 import { Warehouse } from './entities/warehouse.entity';
 import { User } from 'src/user/entities/user.entity';
+import { Housedetail } from 'src/housedetail/entities/housedetail.entity';
 
 @Injectable()
 export class WarehouseService {
@@ -13,6 +14,8 @@ export class WarehouseService {
     private warehouseRepository: Repository<Warehouse>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Housedetail)
+    private housedetailRepository: Repository<Housedetail>,
   ) {}
 
   // 创建仓库
@@ -74,29 +77,35 @@ export class WarehouseService {
 
   // 修改仓库信息
   async updateHouse(updateHouseDto: UpdateWarehouseDto) {
-    const { id, housename, owner, facePage } = updateHouseDto;
-    const user = await this.userRepository.findOne({
-      where: { id: owner },
-      relations: ['warehouses'], // 加载用户的仓库关联
+    const { id, housename } = updateHouseDto;
+    const house = this.warehouseRepository.findOne({
+      where: { id },
     });
-    if (!user) throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
-    const house = user.warehouses.find((item) => item.id === id);
     if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
-    house.housename = housename;
-    await this.warehouseRepository.save(house);
+    (await house).housename = housename;
+    await this.warehouseRepository.save(await house);
   }
 
   // 删除仓库
-  async deleteHouse(id: string, owner: string) {
-    const user = await this.userRepository.findOne({
-      where: { id: owner },
-      relations: ['warehouses'], // 加载用户的仓库关联
+  async deleteHouse(id: string) {
+    const warehouse = await this.warehouseRepository.findOne({
+      where: { id },
     });
-    if (!user) throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
-    const house = user.warehouses.find((item) => item.id === id);
-    if (!house) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
-    user.warehouses = user.warehouses.filter((item) => item.id !== id);
-    await this.warehouseRepository.remove(house);
-    await this.userRepository.save(user);
+    if (!warehouse) throw new HttpException('仓库不存在', HttpStatus.BAD_REQUEST);
+
+    const files = await this.housedetailRepository.find({
+      where: {
+        warehouse: { id },
+      },
+      relations: ['warehouse'],
+    });
+
+    // 逐一删除housedetail记录
+    for (const file of files) {
+      await this.housedetailRepository.remove(file);
+    }
+
+    // 删除warehouse记录
+    await this.warehouseRepository.remove(warehouse);
   }
 }

@@ -10,8 +10,4 @@ export class CreateWarehouseDto {
   @ApiProperty({ description: '拥有者' })
   @IsNotEmpty({ message: '请输入拥有者' })
   owner: string; // 拥有者id;
-
-  @ApiProperty({ description: '首页' })
-  @IsNotEmpty({ message: '请输入首页' })
-  facePage: string;
 }

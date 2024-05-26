@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Warehouse } from '../../warehouse/entities/warehouse.entity';
 
 @Entity('housedetail')
@@ -25,5 +25,6 @@ export class Housedetail {
   content: string;
 
   @ManyToOne(() => Warehouse, (warehouse) => warehouse.files)
+  @JoinColumn({ name: 'warehouseId' })
   warehouse: Warehouse;
 }

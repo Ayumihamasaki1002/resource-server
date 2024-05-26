@@ -8,7 +8,7 @@ import { Warehouse } from 'src/warehouse/entities/warehouse.entity';
 @Module({
   controllers: [HousedetailController],
   providers: [HousedetailService],
-  exports: [],
+  exports: [TypeOrmModule.forFeature([Housedetail])],
   imports: [TypeOrmModule.forFeature([Warehouse]), TypeOrmModule.forFeature([Housedetail])],
 })
 export class HousedetailModule {}
