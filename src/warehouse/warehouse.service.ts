@@ -59,7 +59,7 @@ export class WarehouseService {
           console.log(file);
         });
     });
-    return houseList.warehouses;
+    return houseList;
   }
 
   // 获取单个仓库
